@@ -1,0 +1,17 @@
+.pList {
+  width: 100%;
+  max-width: 1024px;
+  display: flex;
+  overflow: auto;
+  justify-content: space-between;
+  gap: 20px;
+}
+.pList::-webkit-scrollbar {
+  display: none;
+}
+.pListItem {
+  cursor: pointer;
+}
+.pListImg {
+  border-radius: 5px;
+}

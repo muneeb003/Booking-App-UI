@@ -1,0 +1,35 @@
+.fP {
+  width: 100%;
+  max-width: 1024px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.fPItem {
+  display: flex;
+  flex-direction: column;
+}
+.fPImg {
+  width: 100%;
+}
+.fPName {
+  font-weight: bold;
+}
+.fPCity {
+  font-weight: 300;
+}
+.fPPrice {
+  font-weight: 400;
+}
+
+.fPRating button {
+  background-color: #003580;
+  color: white;
+  margin-right: 10px;
+  border-radius: 2px;
+  border: none;
+  padding: 4px;
+}
+.fPRating span {
+  font-size: 14px;
+}

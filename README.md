@@ -1,70 +1,70 @@
-# Getting Started with Create React App
+# Booking App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the Booking App repository! This application is designed to facilitate the booking of hotels, providing a user-friendly interface for browsing, reserving, and managing hotel stays.
 
-## Available Scripts
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- User Authentication (Login and Registration)
+- Search and Browse Hotels
+- View Hotel and Room Details
+- Make and Manage Bookings
+- Process Payments
+- Leave Reviews and Ratings
+- Receive Notifications
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Architecture
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The Booking App is built using a microservices architecture. Below is an overview of the main components:
 
-### `npm test`
+### Frontend
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **React**: A JavaScript library for building user interfaces.
+- **Axios**: A promise-based HTTP client for making requests to the backend services.
 
-### `npm run build`
+### Backend
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Node.js**: JavaScript runtime for the backend.
+- **Express**: A web application framework for Node.js.
+- **Mongoose**: ODM for MongoDB, providing a straightforward, schema-based solution to model application data.
+- **Cloudinary**: For managing and storing images and other media.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Microservices
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. **API Gateway**: Routes requests to the appropriate backend services.
+2. **Authentication Service**: Manages user login and registration.
+3. **User Service**: Handles user data and profiles.
+4. **Hotel Service**: Manages hotel information and listings.
+5. **Room Service**: Handles room availability and details.
+6. **Booking Service**: Manages reservations and bookings.
+7. **Blob Store**: Manages storage of images and other media.
 
-### `npm run eject`
+### Database
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **MongoDB**: A NoSQL database for storing application data.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## API Endpoints
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **Authentication**
+  - `POST /api/auth/register`: Register a new user
+  - `POST /api/auth/login`: Login a user
 
-## Learn More
+- **Hotels**
+  - `GET /api/hotels`: Get a list of hotels
+  - `GET /api/hotels/:id`: Get details of a specific hotel
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **Rooms**
+  - `GET /api/rooms/:id`: Get details of a specific room
+  - `POST /api/rooms/:id/book`: Book a room
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **Bookings**
+  - `GET /api/bookings`: Get a list of user bookings
+  - `POST /api/bookings`: Create a new booking
 
-### Code Splitting
+Happy coding! If you have any questions or need further assistance, please open an issue in this repository.
+https://github.com/user-attachments/assets/ed657827-baa2-4fb3-9a7e-9e7237e17584
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

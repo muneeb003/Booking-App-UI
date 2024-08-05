@@ -86,7 +86,7 @@
 .subtitle {
   font-size: 14px;
 }
-.detailPrice > button {
+.availableBtn {
   width: 100%;
   background-color: #0071c2;
   color: white;

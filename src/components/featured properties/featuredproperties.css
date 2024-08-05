@@ -8,6 +8,8 @@
 .fPItem {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  cursor: pointer;
 }
 .fPImg {
   width: 100%;

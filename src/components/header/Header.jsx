@@ -9,12 +9,16 @@ import { FaPerson } from "react-icons/fa6";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRange } from "react-date-range";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
+import { SearchContext } from "../../context/SearchContext";
+import { AuthContext } from "../../context/AuthContext";
 function Header({ type }) {
+  const { user } = useContext(AuthContext);
   const [showDate, setShowDate] = useState(false);
   const [showCount, setShowCount] = useState(false);
+  const [showDateText, setShowDateText] = useState(false);
   const [destination, setDestination] = useState("");
   const [date, setDate] = useState([
     {
@@ -26,6 +30,7 @@ function Header({ type }) {
   const [options, setOptions] = useState({
     adult: 1,
     children: 0,
+    room: 1,
   });
 
   const navigate = useNavigate();
@@ -42,8 +47,15 @@ function Header({ type }) {
       };
     });
   };
+
+  const { dispatch } = useContext(SearchContext);
   const handleSearch = () => {
+    dispatch({ type: "NEW_SEARCH", payload: { destination, date, options } });
     navigate("/hotels", { state: { destination, date, options } });
+  };
+  const handleDate = (item) => {
+    setDate([item.selection]);
+    setShowDateText(true);
   };
   const style = {
     height: "120px",
@@ -79,7 +91,12 @@ function Header({ type }) {
             <p className="description">
               Book entire houses, villas, cabins, and more
             </p>
-            <button className="btn">Login/Register</button>
+
+            {!user && (
+              <button onClick={() => navigate("/login")} className="btn">
+                Login/Register
+              </button>
+            )}
 
             <div className="headerSearch">
               <div className="headerSearchItem">
@@ -98,14 +115,20 @@ function Header({ type }) {
                     setShowDate(!showDate);
                   }}
                   className="headerSearchText"
-                >{`${format(date[0].startDate, "dd/MM/yyyy")} to ${format(
-                  date[0].endDate,
-                  "dd/MM/yyyy"
-                )}`}</span>
+                >
+                  {showDateText ? (
+                    `${format(date[0].startDate, "dd/MM/yyyy")} to ${format(
+                      date[0].endDate,
+                      "dd/MM/yyyy"
+                    )}`
+                  ) : (
+                    <span>Check-In --- Check-Out</span>
+                  )}
+                </span>
                 {showDate && (
                   <DateRange
                     editableDateInputs={true}
-                    onChange={(item) => setDate([item.selection])}
+                    onChange={handleDate}
                     moveRangeOnFirstSelection={false}
                     ranges={date}
                     className="date"
@@ -120,7 +143,7 @@ function Header({ type }) {
                     setShowCount(!showCount);
                   }}
                   className="headerSearchText"
-                >{`${options.adult} adults ${options.children} children `}</span>
+                >{`${options.adult} adults ${options.children} children ${options.room} room`}</span>
 
                 {showCount && (
                   <div className="options">
@@ -162,17 +185,32 @@ function Header({ type }) {
                         </button>
                       </div>
                     </div>
+                    <div className="optionItem">
+                      <span className="optionText">Rooms</span>
+                      <div className="optionCounter">
+                        <button
+                          className="optionbtn"
+                          onClick={() => handleClick("room", "i")}
+                        >
+                          +
+                        </button>
+                        <span className="count">{options.room}</span>
+                        <button
+                          disabled={options.room <= 0}
+                          className="optionbtn"
+                          onClick={() => handleClick("room", "d")}
+                        >
+                          -
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>
-              <div className="headerSearchItem">
-                <button
-                  className="headerSearchButton btn"
-                  onClick={handleSearch}
-                >
-                  Search
-                </button>
-              </div>
+
+              <button className="headerSearchButton btn" onClick={handleSearch}>
+                Search
+              </button>
             </div>
           </>
         )}

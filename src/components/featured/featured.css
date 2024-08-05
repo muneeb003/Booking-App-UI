@@ -16,6 +16,7 @@
   width: 100%;
   object-fit: cover;
   opacity: 0.99;
+  cursor: pointer;
 }
 .featuredTitle {
   position: absolute;

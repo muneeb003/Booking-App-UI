@@ -10,8 +10,11 @@ import "./home.css";
 function Home() {
   return (
     <div>
-      <Navbar />
-      <Header />
+      <div className="navhead">
+        <Navbar />
+        <Header />
+      </div>
+
       <div className="homeContainer">
         <Featured />
         <h1 className="homeTitle">Browse By Type</h1>

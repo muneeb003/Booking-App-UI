@@ -1,12 +1,11 @@
-import { srLatn } from "date-fns/locale";
-import { Children, createContext, useReducer } from "react";
+import { createContext, useReducer } from "react";
 
 const INITIAL_STATE = {
   city: undefined,
-  date: [],
+  dates: [],
   options: {
     adult: undefined,
-    Children: undefined,
+    children: undefined,
     room: undefined,
   },
 };
@@ -26,11 +25,12 @@ const SearchReducer = (state, action) => {
 
 export const SearchContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(SearchReducer, INITIAL_STATE);
+
   return (
     <SearchContext.Provider
       value={{
         city: state.city,
-        date: state.date,
+        dates: state.dates,
         options: state.options,
         dispatch,
       }}

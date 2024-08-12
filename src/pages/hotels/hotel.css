@@ -61,7 +61,7 @@
   cursor: pointer;
   border-radius: 10px;
 }
-.hotelTitle {
+.hotelName {
   font-size: 24px;
 }
 .hotelAddress {
@@ -89,6 +89,7 @@
 .hotelImg {
   width: 100%;
   object-fit: cover;
+  border-radius: 10px;
 }
 .hotelDetails {
   display: flex;
@@ -98,11 +99,18 @@
 }
 .hotelDetailsText {
   flex: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.hotelTitle {
+  font-size: 20px;
+  margin-top: 5px;
+  font-weight: 500;
 }
 .hotelDesc {
   text-align: justify;
   font-size: 14px;
-  margin-top: 20px;
 }
 .hotelDetailsPrice {
   flex: 1;

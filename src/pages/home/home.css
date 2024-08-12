@@ -9,3 +9,9 @@
   width: 1024px;
   font-size: 20px;
 }
+.navhead {
+  background-image: url("https://images.pexels.com/photos/1167021/pexels-photo-1167021.jpeg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  font-size: 20px;
+}

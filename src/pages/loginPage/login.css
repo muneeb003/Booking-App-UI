@@ -28,3 +28,7 @@
   font-weight: bold;
   cursor: pointer;
 }
+
+.guestBtn:hover {
+  text-decoration: underline;
+}

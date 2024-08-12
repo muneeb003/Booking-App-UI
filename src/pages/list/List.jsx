@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import Header from "../../components/header/Header";
 import "./list.css";
@@ -8,28 +8,31 @@ import { DateRange } from "react-date-range";
 import SearchItem from "../../components/searchItem/SearchItem";
 import useFetch from "../../hooks/useFetch.js";
 import { SearchContext } from "../../context/SearchContext.js";
+import MailList from "../../components/mailList/MailList.jsx";
+import Footer from "../../components/footer/Footer.jsx";
 
 function List() {
   const location = useLocation();
   const [destination, setDestination] = useState(location.state.destination);
-  const [date, setDate] = useState(location.state.date);
+  // const { dates } = useContext(SearchContext);
+  const [dates, setDate] = useState(location.state.dates);
   const [options, setOptions] = useState(location.state.options);
   const [showDate, setShowDate] = useState(false);
   const [min, setMin] = useState(undefined);
   const [max, setMax] = useState(undefined);
 
-  const { data, loading, error, reFetchData } = useFetch(
+  const { data, loading, reFetchData } = useFetch(
     `/hotels?city=${destination}&min=${min || 0}&max=${max || 999}`
   );
   const { dispatch } = useContext(SearchContext);
   const handleClick = (e) => {
-    e.prventDefault();
+    e.preventDefault();
+    dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options } });
     reFetchData();
-    dispatch({ type: "NEW_SEARCH", payload: { destination, date, options } });
   };
   return (
     <div>
-      <Navbar />
+      <Navbar type={"list"} />
       <Header type={"list"} />
       <div className="listContainer">
         <div className="listWrapper">
@@ -41,19 +44,20 @@ function List() {
                 onChange={(e) => setDestination(e.target.value)}
                 placeholder={destination}
                 type="text"
+                className="searchInput"
               />
             </div>
             <div className="lsItem">
-              <label htmlFor="">Check In</label>
+              <label htmlFor="">Check In - Check Out</label>
               <span onClick={() => setShowDate(!showDate)}>{`${format(
-                date[0].startDate,
+                dates[0].startDate,
                 "dd/MM/yyyy"
-              )} to ${format(date[0].endDate, "dd/MM/yyyy")}`}</span>
+              )} to ${format(dates[0].endDate, "dd/MM/yyyy")}`}</span>
               {showDate && (
                 <DateRange
                   onChange={(item) => setDate([item.selection])}
                   minDate={new Date()}
-                  ranges={date}
+                  ranges={dates}
                   style={{ width: "inherit" }}
                 />
               )}
@@ -114,6 +118,8 @@ function List() {
           </div>
         </div>
       </div>
+      <MailList />
+      <Footer />
     </div>
   );
 }

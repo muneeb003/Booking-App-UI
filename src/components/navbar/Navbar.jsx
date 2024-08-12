@@ -3,7 +3,8 @@ import { AuthContext } from "../../context/AuthContext";
 import "./navbar.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-function Navbar() {
+import { LuPlane } from "react-icons/lu";
+function Navbar({ type }) {
   const { user } = useContext(AuthContext);
   const [showLogout, setShowLogout] = useState(false);
   const navigate = useNavigate();
@@ -23,11 +24,16 @@ function Navbar() {
       console.log(err);
     }
   };
+  const style = {
+    backgroundColor: "#0071c2",
+    boxShadow: "0 0 5px rgba(0, 0, 0, 0.05), 2px 2px 5px rgba(0, 0, 0, 0.1);",
+    color: "white",
+  };
   return (
-    <div className="navbar">
+    <div className="navbar" style={type === "list" ? style : null}>
       <div className="navbar-container">
-        <Link to="/" style={{ color: "inherit", textDecoration: "none" }}>
-          <span className="logo">Bookings</span>
+        <Link to="/home" style={{ color: "inherit", textDecoration: "none" }}>
+          <span className="logo">Travel</span>
         </Link>
 
         {user ? (

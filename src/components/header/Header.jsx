@@ -20,7 +20,7 @@ function Header({ type }) {
   const [showCount, setShowCount] = useState(false);
   const [showDateText, setShowDateText] = useState(false);
   const [destination, setDestination] = useState("");
-  const [date, setDate] = useState([
+  const [dates, setDate] = useState([
     {
       startDate: new Date(),
       endDate: new Date(),
@@ -50,18 +50,25 @@ function Header({ type }) {
 
   const { dispatch } = useContext(SearchContext);
   const handleSearch = () => {
-    dispatch({ type: "NEW_SEARCH", payload: { destination, date, options } });
-    navigate("/hotels", { state: { destination, date, options } });
+    dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options } });
+    navigate("/hotels", { state: { destination, dates, options } });
   };
   const handleDate = (item) => {
     setDate([item.selection]);
     setShowDateText(true);
   };
   const style = {
-    height: "120px",
+    color: "white",
+    backgroundColor: "#0071c2",
+    paddingTop: "0px",
+    marginTop: "0px",
+    height: "80px",
+  };
+  const newStyle = {
+    height: "85vh",
   };
   return (
-    <div className="header" style={type === "list" ? style : null}>
+    <div className="header" style={type === "list" ? style : newStyle}>
       <div className="header-container">
         <div className="headerList">
           <div className="list-item active">
@@ -117,8 +124,8 @@ function Header({ type }) {
                   className="headerSearchText"
                 >
                   {showDateText ? (
-                    `${format(date[0].startDate, "dd/MM/yyyy")} to ${format(
-                      date[0].endDate,
+                    `${format(dates[0].startDate, "dd/MM/yyyy")} to ${format(
+                      dates[0].endDate,
                       "dd/MM/yyyy"
                     )}`
                   ) : (
@@ -130,7 +137,7 @@ function Header({ type }) {
                     editableDateInputs={true}
                     onChange={handleDate}
                     moveRangeOnFirstSelection={false}
-                    ranges={date}
+                    ranges={dates}
                     className="date"
                     minDate={new Date()}
                   />

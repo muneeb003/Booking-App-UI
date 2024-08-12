@@ -24,16 +24,16 @@ function Hotel() {
   };
   const location = useLocation();
   const id = location.pathname.split("/")[2];
-  const { data, loading, error, reFetchData } = useFetch(`/hotels/find/${id}`);
+  const { data, loading } = useFetch(`/hotels/find/${id}`);
 
-  const { date, options } = useContext(SearchContext);
+  const { dates, options } = useContext(SearchContext);
   const milliSeconds_Per_Day = 1000 * 60 * 60 * 24;
   function dayDifference(date1, date2) {
     const timeDiff = Math.abs(date2?.getTime() - date1?.getTime());
     const diffDays = Math.ceil(timeDiff / milliSeconds_Per_Day);
     return diffDays;
   }
-  const days = dayDifference(date[0]?.endDate, date[0]?.startDate);
+  const days = dayDifference(dates[0]?.endDate, dates[0]?.startDate);
   const handleMove = (direction) => {
     let newSlideNumber;
     if (direction === "l") {
@@ -54,55 +54,36 @@ function Hotel() {
   };
   return (
     <div>
-      <Navbar />
+      <Navbar type={"list"} />
       <Header type={"list"} />
+      {showSlider && (
+        <div className="slider">
+          <BsFullscreenExit
+            className="close"
+            onClick={() => setShowSlider(false)}
+          />
+          <FaArrowAltCircleLeft
+            className="arrow"
+            onClick={() => {
+              handleMove("l");
+            }}
+          />
+          <div className="slideWrapper">
+            <img src={data.images[slideIndex]} alt="" className="sliderImg" />
+          </div>
+          <FaArrowAltCircleRight
+            className="arrow"
+            onClick={() => {
+              handleMove("r");
+            }}
+          />
+        </div>
+      )}
       {loading ? (
         "Loading pls wait"
       ) : (
         <div className="hotelContainer">
-          {showSlider && (
-            <div className="slider">
-              <BsFullscreenExit
-                className="close"
-                onClick={() => setShowSlider(false)}
-              />
-              <FaArrowAltCircleLeft
-                className="arrow"
-                onClick={() => {
-                  handleMove("l");
-                }}
-              />
-              <div className="slideWrapper">
-                <img
-                  src={data.images[slideIndex]}
-                  alt=""
-                  className="sliderImg"
-                />
-              </div>
-              <FaArrowAltCircleRight
-                className="arrow"
-                onClick={() => {
-                  handleMove("r");
-                }}
-              />
-            </div>
-          )}
           <div className="hotelWrapper">
-            <button className="bookNow" onClick={handleClick}>
-              Reserve or Book Now!
-            </button>
-            <h1 className="hotelTitle">{data.name}</h1>
-            <div className="hotelAddress">
-              <FaLocationDot />
-              <span>{data.address}</span>
-            </div>
-            <span className="hotelDistance">
-              Excellent location – ${data.distance}m from center
-            </span>
-            <span className="hotelPriceHighlight">
-              Book a stay over ${data.cheapestPrice} at this property and get a
-              free airport taxi
-            </span>
             <div className="hotelImages">
               {data.images?.map((photo, i) => (
                 <div className="hotelImgWrapper">
@@ -115,10 +96,23 @@ function Hotel() {
                 </div>
               ))}
             </div>
+
             <div className="hotelDetails">
               <div className="hotelDetailsText">
-                <h1 className="hotelTitle">{data.title}</h1>
-                <p className="hotelDesc">{data.description}</p>
+                <h1 className="hotelName">{data.name}</h1>
+                <div className="hotelAddress">
+                  <FaLocationDot />
+                  <span>{data.address}</span>
+                </div>
+                <span className="hotelDistance">
+                  Excellent location – ${data.distance}m from center
+                </span>
+                <span className="hotelPriceHighlight">
+                  Book a stay over ${data.cheapestPrice} at this property and
+                  get a free airport taxi
+                </span>
+                <span className="hotelTitle">{data.title}</span>
+                <span className="hotelDesc">{data.description}</span>
               </div>
               <div className="hotelDetailsPrice">
                 <h1>Perfect for a {days}-night stay!</h1>

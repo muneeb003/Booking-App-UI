@@ -28,7 +28,7 @@ function Register() {
         img: url,
       };
       await axios.post("/auth/register", newUser);
-      navigate("/");
+      navigate("/home");
     } catch (err) {
       console.log(err);
     }
